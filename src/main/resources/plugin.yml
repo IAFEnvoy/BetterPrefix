@@ -1,0 +1,11 @@
+name: BetterPrefix
+version: '${project.version}'
+main: iafenvoy.betterprefix.BetterPrefix
+api-version: 1.16
+prefix: BetterPrefix
+authors: [ IAFEnvoy ]
+description: A better way to use prefix on server
+commands:
+  prefix:
+    description: Modify Player's prefixes
+    usage: /prefix <operation> <args>
