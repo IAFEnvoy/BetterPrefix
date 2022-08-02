@@ -34,25 +34,53 @@ public class PrefixManager {
     }
 
     @Nullable
-    public Prefix getPrefixById(String id){
-        for(Prefix p : prefixes)
-            if(p.getId().equals(id))
+    public Prefix getPrefixById(String id) {
+        for (Prefix p : prefixes)
+            if (p.getId().equals(id))
                 return p;
         return null;
     }
 
     @Nullable
-    public PPlayer getPlayerByName(String name){
-        UUID uuid= UUIDUtils.getUuidByName(name);
+    public PPlayer getPlayerByName(String name) {
+        UUID uuid = UUIDUtils.getUuidByName(name);
         return this.getPlayerByUuid(uuid);
     }
 
     @Nullable
-    public PPlayer getPlayerByUuid(UUID uuid){
-        for(PPlayer p:this.players)
-            if(p.getUuid().equals(uuid))
+    public PPlayer getPlayerByUuid(UUID uuid) {
+        for (PPlayer p : this.players)
+            if (p.getUuid().equals(uuid))
                 return p;
         return null;
     }
 
+    public boolean addPrefix(String id, String text) {
+        for (Prefix p : this.prefixes)
+            if (p.getId().equals(id))
+                return false;
+        Prefix p = new Prefix(id, text);
+        this.prefixes.add(p);
+        return true;
+    }
+
+    public boolean removePrefix(String id) {
+        Prefix prefix = null;
+        for (Prefix p : this.prefixes)
+            if (p.getId().equals(id))
+                prefix = p;
+        if (prefix != null)
+            this.prefixes.remove(prefix);
+        return prefix != null;
+    }
+
+    public boolean modifyPrefix(String id, String text) {
+        Prefix prefix = null;
+        for (Prefix p : this.prefixes)
+            if (p.getId().equals(id))
+                prefix = p;
+        if (prefix != null)
+            prefix.setText(text);
+        return prefix != null;
+    }
 }

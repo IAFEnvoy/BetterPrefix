@@ -1,30 +1,32 @@
 package iafenvoy.betterprefix.prefix;
 
+import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class PPlayer {
-    private UUID uuid;
+public class PPlayer{
     private List<Prefix> canUse;
     private Prefix nowUse;
+    private Player player;
 
-    public PPlayer(UUID uuid, List<Prefix> canUse, Prefix nowUse) {
-        this.uuid = uuid;
+    public PPlayer(Player player, List<Prefix> canUse, Prefix nowUse) {
+        this.player=player;
         this.canUse = canUse;
         this.nowUse = nowUse;
     }
 
-    public PPlayer(UUID uuid, List<Prefix> canUse) {
-        this(uuid, canUse, null);
+    public PPlayer(Player player, List<Prefix> canUse) {
+        this(player, canUse, null);
     }
 
-    public PPlayer(UUID uuid) {
-        this(uuid, new ArrayList<>());
+    public PPlayer(Player player) {
+        this(player, new ArrayList<>());
     }
 
     public UUID getUuid() {
-        return this.uuid;
+        return this.player.getUniqueId();
     }
 
     public List<Prefix> getCanUse() {
@@ -50,5 +52,9 @@ public class PPlayer {
             return true;
         }
         return false;
+    }
+
+    public boolean isOp(){
+        return this.player.isOp();
     }
 }

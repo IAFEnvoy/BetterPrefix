@@ -1,6 +1,5 @@
 package iafenvoy.betterprefix.commands;
 
-import iafenvoy.betterprefix.BetterPrefix;
 import iafenvoy.betterprefix.prefix.PPlayer;
 import iafenvoy.betterprefix.prefix.Prefix;
 import iafenvoy.betterprefix.prefix.PrefixManager;
@@ -31,9 +30,6 @@ public class PrefixCommandExecutor implements CommandExecutor {
         /prefix add <id> <text> :添加一个前缀
         /prefix remove <id> :按id删除前缀
         /prefix modify <id> <text> :修改指定前缀的显示文本
-        /prefix addOP <playerName> :添加一个此插件的OP
-        /prefix removeOP <playerName> :删除一个此插件的OP
-        /prefix opList :显示OP列表
         * */
         if (args.length == 0) return false;
         final String key = args[0];
@@ -78,7 +74,7 @@ public class PrefixCommandExecutor implements CommandExecutor {
             } else
                 sender.sendMessage("这个指令只能由玩家执行！");
         }
-        //helper command
+        //Helper command
         else if (key.equals("addPlayer")) {
             if (sender instanceof Player)
                 if (args.length == 1) sender.sendMessage("缺少<id>参数");
@@ -87,9 +83,9 @@ public class PrefixCommandExecutor implements CommandExecutor {
                     final String id = args[1], name = args[2];
                     UUID uuid = UUIDUtils.getUuidByName(sender.getName());
                     Prefix prefix = PrefixManager.INSTANCE.getPrefixById(id);
-                    if(prefix==null)
+                    if (prefix == null)
                         sender.sendMessage("未找到指定前缀！");
-                    else if (prefix.isAdmin(uuid)||PrefixManager.INSTANCE.isOP(uuid)) {
+                    else if (prefix.isAdmin(uuid) || PrefixManager.INSTANCE.isOP(uuid)) {
                         PPlayer p = PrefixManager.INSTANCE.getPlayerByName(name);
                         if (p == null)
                             sender.sendMessage("玩家不存在！");
@@ -97,12 +93,12 @@ public class PrefixCommandExecutor implements CommandExecutor {
                             p.addCanUse(prefix);
                             sender.sendMessage("添加成功");
                         }
-                    }else
+                    } else
                         sender.sendMessage("你没有权限操作此前缀！");
                 }
             else
                 sender.sendMessage("这个指令只能由玩家执行！");
-        }else if(key.equals("removePlayer")){
+        } else if (key.equals("removePlayer")) {
             if (sender instanceof Player)
                 if (args.length == 1) sender.sendMessage("缺少<id>参数");
                 else if (args.length == 2) sender.sendMessage("缺少<playerName>参数");
@@ -110,9 +106,9 @@ public class PrefixCommandExecutor implements CommandExecutor {
                     final String id = args[1], name = args[2];
                     UUID uuid = UUIDUtils.getUuidByName(sender.getName());
                     Prefix prefix = PrefixManager.INSTANCE.getPrefixById(id);
-                    if(prefix==null)
+                    if (prefix == null)
                         sender.sendMessage("未找到指定前缀！");
-                    else if (prefix.isAdmin(uuid)||PrefixManager.INSTANCE.isOP(uuid)) {
+                    else if (prefix.isAdmin(uuid) || PrefixManager.INSTANCE.isOP(uuid)) {
                         PPlayer p = PrefixManager.INSTANCE.getPlayerByName(name);
                         if (p == null)
                             sender.sendMessage("玩家不存在！");
@@ -120,12 +116,12 @@ public class PrefixCommandExecutor implements CommandExecutor {
                             p.removeCanUse(prefix);
                             sender.sendMessage("移除成功");
                         }
-                    }else
+                    } else
                         sender.sendMessage("你没有权限操作此前缀！");
                 }
             else
                 sender.sendMessage("这个指令只能由玩家执行！");
-        }else if(key.equals("addHelper")){
+        } else if (key.equals("addHelper")) {
             if (sender instanceof Player)
                 if (args.length == 1) sender.sendMessage("缺少<id>参数");
                 else if (args.length == 2) sender.sendMessage("缺少<playerName>参数");
@@ -133,9 +129,9 @@ public class PrefixCommandExecutor implements CommandExecutor {
                     final String id = args[1], name = args[2];
                     UUID uuid = UUIDUtils.getUuidByName(sender.getName());
                     Prefix prefix = PrefixManager.INSTANCE.getPrefixById(id);
-                    if(prefix==null)
+                    if (prefix == null)
                         sender.sendMessage("未找到指定前缀！");
-                    else if (prefix.isAdmin(uuid)||PrefixManager.INSTANCE.isOP(uuid)) {
+                    else if (prefix.isAdmin(uuid) || PrefixManager.INSTANCE.isOP(uuid)) {
                         PPlayer p = PrefixManager.INSTANCE.getPlayerByName(name);
                         if (p == null)
                             sender.sendMessage("玩家不存在！");
@@ -143,12 +139,12 @@ public class PrefixCommandExecutor implements CommandExecutor {
                             prefix.addAdmin(p.getUuid());
                             sender.sendMessage("添加成功");
                         }
-                    }else
+                    } else
                         sender.sendMessage("你没有权限操作此前缀！");
                 }
             else
                 sender.sendMessage("这个指令只能由玩家执行！");
-        }else if(key.equals("removeHelper")){
+        } else if (key.equals("removeHelper")) {
             if (sender instanceof Player)
                 if (args.length == 1) sender.sendMessage("缺少<id>参数");
                 else if (args.length == 2) sender.sendMessage("缺少<playerName>参数");
@@ -156,9 +152,9 @@ public class PrefixCommandExecutor implements CommandExecutor {
                     final String id = args[1], name = args[2];
                     UUID uuid = UUIDUtils.getUuidByName(sender.getName());
                     Prefix prefix = PrefixManager.INSTANCE.getPrefixById(id);
-                    if(prefix==null)
+                    if (prefix == null)
                         sender.sendMessage("未找到指定前缀！");
-                    else if (prefix.isAdmin(uuid)||PrefixManager.INSTANCE.isOP(uuid)) {
+                    else if (prefix.isAdmin(uuid) || PrefixManager.INSTANCE.isOP(uuid)) {
                         PPlayer p = PrefixManager.INSTANCE.getPlayerByName(name);
                         if (p == null)
                             sender.sendMessage("玩家不存在！");
@@ -166,10 +162,62 @@ public class PrefixCommandExecutor implements CommandExecutor {
                             prefix.removeAdmin(p.getUuid());
                             sender.sendMessage("移除");
                         }
-                    }else
+                    } else
                         sender.sendMessage("你没有权限操作此前缀！");
                 }
             else
+                sender.sendMessage("这个指令只能由玩家执行！");
+        }
+        //OP command
+        else if (key.equals("add")) {
+            if (sender instanceof Player) {
+                PPlayer player = PrefixManager.INSTANCE.getPlayerByName(sender.getName());
+                if (player.isOp()) {
+                    if (args.length == 1) sender.sendMessage("缺少<id>参数");
+                    else if (args.length == 2) sender.sendMessage("缺少<text>参数");
+                    else {
+                        final String id = args[1], text = args[2];
+                        if (PrefixManager.INSTANCE.addPrefix(id, text))
+                            sender.sendMessage("添加成功");
+                        else
+                            sender.sendMessage("此前缀id已存在！");
+                    }
+                } else
+                    sender.sendMessage("你没有权限新建前缀！");
+            } else
+                sender.sendMessage("这个指令只能由玩家执行！");
+        } else if (key.equals("remove")) {
+            if (sender instanceof Player) {
+                PPlayer player = PrefixManager.INSTANCE.getPlayerByName(sender.getName());
+                if (player.isOp()) {
+                    if (args.length == 1) sender.sendMessage("缺少<id>参数");
+                    else {
+                        final String id = args[1];
+                        if (PrefixManager.INSTANCE.removePrefix(id))
+                            sender.sendMessage("删除成功");
+                        else
+                            sender.sendMessage("未找到此前缀！");
+                    }
+                } else
+                    sender.sendMessage("你没有权限删除前缀！");
+            } else
+                sender.sendMessage("这个指令只能由玩家执行！");
+        } else if (key.equals("modify")) {
+            if (sender instanceof Player) {
+                PPlayer player = PrefixManager.INSTANCE.getPlayerByName(sender.getName());
+                if (player.isOp()) {
+                    if (args.length == 1) sender.sendMessage("缺少<id>参数");
+                    else if (args.length == 2) sender.sendMessage("缺少<text>参数");
+                    else {
+                        final String id = args[1], text = args[2];
+                        if (PrefixManager.INSTANCE.modifyPrefix(id, text))
+                            sender.sendMessage("修改成功");
+                        else
+                            sender.sendMessage("前缀不存在！");
+                    }
+                } else
+                    sender.sendMessage("你没有权限修改前缀！");
+            } else
                 sender.sendMessage("这个指令只能由玩家执行！");
         }
         return true;

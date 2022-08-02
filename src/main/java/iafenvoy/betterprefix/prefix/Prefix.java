@@ -31,6 +31,10 @@ public class Prefix {
         }
     }
 
+    public Prefix(String id, String text) {
+        this(id,text,new UUID[]{});
+    }
+
     public String getId() {
         return this.id;
     }
@@ -53,5 +57,9 @@ public class Prefix {
 
     public void removeAdmin(UUID uuid){
         this.admins.remove(uuid);
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
