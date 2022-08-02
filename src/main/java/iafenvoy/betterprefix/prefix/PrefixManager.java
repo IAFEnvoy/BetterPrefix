@@ -1,6 +1,8 @@
 package iafenvoy.betterprefix.prefix;
 
+import iafenvoy.betterprefix.utils.TeamCommandUtils;
 import iafenvoy.betterprefix.utils.UUIDUtils;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -8,29 +10,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class PrefixManager {
-    public static final PrefixManager INSTANCE = new PrefixManager();
-    private List<PPlayer> players = new ArrayList<>();
-    private List<Prefix> prefixes = new ArrayList<>();
-    private List<UUID> ops = new ArrayList<>();
-
-    public PrefixManager() {
-
-    }
+    public static PrefixManager INSTANCE = new PrefixManager();
+    private final List<PPlayer> players = new ArrayList<>();
+    private final List<Prefix> prefixes = new ArrayList<>();
 
     public List<Prefix> getPrefixes() {
         return prefixes;
-    }
-
-    public List<PPlayer> getPlayers() {
-        return players;
-    }
-
-    public List<UUID> getOps() {
-        return ops;
-    }
-
-    public boolean isOP(UUID uuid) {
-        return ops.contains(uuid);
     }
 
     @Nullable
@@ -61,6 +46,7 @@ public class PrefixManager {
                 return false;
         Prefix p = new Prefix(id, text);
         this.prefixes.add(p);
+        TeamCommandUtils.addPrefix(p);
         return true;
     }
 
@@ -69,8 +55,10 @@ public class PrefixManager {
         for (Prefix p : this.prefixes)
             if (p.getId().equals(id))
                 prefix = p;
-        if (prefix != null)
+        if (prefix != null) {
             this.prefixes.remove(prefix);
+            TeamCommandUtils.removePrefix(prefix);
+        }
         return prefix != null;
     }
 
@@ -79,8 +67,14 @@ public class PrefixManager {
         for (Prefix p : this.prefixes)
             if (p.getId().equals(id))
                 prefix = p;
-        if (prefix != null)
+        if (prefix != null) {
             prefix.setText(text);
+            TeamCommandUtils.modifyPrefix(prefix);
+        }
         return prefix != null;
+    }
+
+    public void newPlayer(Player player) {
+        this.players.add(new PPlayer(player));
     }
 }

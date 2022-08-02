@@ -4,19 +4,19 @@ import iafenvoy.betterprefix.utils.UUIDUtils;
 import iafenvoy.betterprefix.utils.exceptions.PlayerNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class Prefix {
-    private String id;
+    private final String id;
     private String text;
-    private List<UUID> admins = new ArrayList<>();
+    private final List<UUID> admins = new ArrayList<>();
 
     public Prefix(String id, String text, UUID... playerUUIDs) {
         this.id = id;
         this.text = text;
-        for (UUID uuid : playerUUIDs)
-            this.admins.add(uuid);
+        this.admins.addAll(Arrays.asList(playerUUIDs));
     }
 
     public Prefix(String id, String text, String... playerNames) {

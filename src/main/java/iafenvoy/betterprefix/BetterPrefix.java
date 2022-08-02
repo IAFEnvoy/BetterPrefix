@@ -2,6 +2,8 @@ package iafenvoy.betterprefix;
 
 import iafenvoy.betterprefix.commands.PrefixCommandExecutor;
 import iafenvoy.betterprefix.config.ConfigManager;
+import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class BetterPrefix extends JavaPlugin {
@@ -10,7 +12,10 @@ public final class BetterPrefix extends JavaPlugin {
     @Override
     public void onEnable() {
         manager.load();
-        this.getCommand("prefix").setExecutor(new PrefixCommandExecutor());
+        PluginCommand pc = this.getCommand("prefix");
+        if (pc == null) throw new RuntimeException("Can't find command /prefix");
+        pc.setExecutor(new PrefixCommandExecutor());
+        Bukkit.getPluginManager().registerEvents(new PluginEventHandler(), this);
     }
 
     @Override
